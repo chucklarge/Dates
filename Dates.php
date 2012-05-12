@@ -11,7 +11,6 @@ class Dates {
         $success =  date_default_timezone_set($timezone);
         if (!$success) {
             throw new Exception("Can't set timezone to " . $timezone);
-            die();
         }
 
         $this->start_time = $start_time;
@@ -51,9 +50,21 @@ class Dates {
         return strtotime($ws);
     }
 
+    public function getWeekEnd() {
+        $ws = date("Y-m-d", strtotime("$this->ds -$this->num_day days"));
+        $we = date("Y-m-d 23:59:59", strtotime("$ws +6 days"));
+        return strtotime($we);
+    }
+
     public function getNextWeekStart() {
         $ws = date("Y-m-d", strtotime("$this->ds -$this->num_day days"));
         return strtotime(date("Y-m-d", strtotime("$ws +1 weeks")));
+    }
+
+    public function getNextWeekEnd() {
+        $ws = date("Y-m-d", strtotime("$this->ds -$this->num_day days"));
+        $we = date("Y-m-d", strtotime("$ws +6 days"));
+        return strtotime(date("Y-m-d 23:59:59", strtotime("$we +1 weeks")));
     }
 
     public function getPreviousWeekStart() {
@@ -61,29 +72,61 @@ class Dates {
         return strtotime(date("Y-m-d", strtotime("$ws -1 weeks")));
     }
 
+    public function getPreviousWeekEnd() {
+        $ws = date("Y-m-d", strtotime("$this->ds -$this->num_day days"));
+        $we = date("Y-m-d", strtotime("$ws +6 days"));
+        return strtotime(date("Y-m-d 23:59:59", strtotime("$we -1 weeks")));
+    }
+
     // Month
     public function getMonthStart() {
-        return strtotime(date("Y-m-01", strtotime("$this->ds")));
+        return strtotime(date("Y-m-01", strtotime($this->ds)));
+    }
+
+    public function getMonthEnd() {
+        return strtotime(date("Y-m-t 23:59:59", strtotime($this->ds)));
     }
 
     public function getNextMonthStart() {
-        return strtotime(date("Y-m-", strtotime("$this->ds +1 months")) . '01');
+        return strtotime(date("Y-m-01", strtotime("$this->ds +1 months")));
+    }
+
+    public function getNextMonthEnd() {
+        $ms = date("Y-m-01", strtotime("$this->ds +1 months"));
+        return strtotime(date("Y-m-t 23:59:59", strtotime($ms)));
     }
 
     public function getPreviousMonthStart() {
-        return strtotime(date("Y-m-", strtotime("$this->ds -1 months")) . '01');
+        return strtotime(date("Y-m-01", strtotime("$this->ds -1 months")));
+    }
+
+    public function getPreviousMonthEnd() {
+        $ms = date("Y-m-01", strtotime("$this->ds -1 months"));
+        return strtotime(date("Y-m-t 23:59:59", strtotime($ms)));
     }
 
     // Year
     public function getYearStart() {
-        return strtotime(date("Y", strtotime($this->ds)) . '-01-01');
+        return strtotime(date("Y-01-01", strtotime($this->ds)));
+    }
+
+    public function getYearEnd() {
+        return strtotime(date("Y-12-31 23:59:59", strtotime($this->ds)));
     }
 
     public function getNextYearStart() {
-        return strtotime(date("Y", strtotime("$this->ds +1 years")) . '-01-01');
+        return strtotime(date("Y-01-01", strtotime("$this->ds +1 years")));
+    }
+
+    public function getNextYearEnd() {
+        return strtotime(date("Y-12-31 23:59:59", strtotime("$this->ds +1 years")));
     }
 
     public function getPreviousYearStart() {
-        return strtotime(date("Y", strtotime("$this->ds -1 years")) . '-01-01');
+        return strtotime(date("Y-01-01", strtotime("$this->ds -1 years")));
+    }
+
+    public function getPreviousYearEnd() {
+        return strtotime(date("Y-12-31 23:59:59", strtotime("$this->ds -1 years")));
     }
 }
