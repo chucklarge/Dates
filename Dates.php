@@ -4,6 +4,7 @@ class Dates {
     const ONE_DAY  = 86400;
 
     protected $start_time; // incoming timestamp
+    protected $timezone;   // incoming timezone
     protected $ds;         // day start
     protected $num_day;    // num day of week 0-6
 
@@ -14,119 +15,149 @@ class Dates {
         }
 
         $this->start_time = $start_time;
+        $this->timezone = $timezone;
         $this->ds      = date('Y-m-d', $start_time);
         $this->num_day = date('w', $start_time);
     }
 
+    //
+    public function toTimestamp() {
+        return $this->start_time;
+    }
+
     // Hour
-    public function getHourStart() {
-        return strtotime(date('Y-m-d H:00', $this->start_time));
+    public function HourStart() {
+        $ts = strtotime(date('Y-m-d H:00', $this->start_time));
+        return new Dates($ts, $this->timezone);
     }
 
-    public function getNextHourStart() {
-        return strtotime(date('Y-m-d H:00', $this->start_time)) + self::ONE_HOUR;
+    public function NextHourStart() {
+        $ts = strtotime(date('Y-m-d H:00', $this->start_time)) + self::ONE_HOUR;
+        return new Dates($ts, $this->timezone);
     }
 
-    public function getPreviousHourStart() {
-        return strtotime(date('Y-m-d H:00', $this->start_time)) - self::ONE_HOUR;
+    public function PreviousHourStart() {
+        $ts = strtotime(date('Y-m-d H:00', $this->start_time)) - self::ONE_HOUR;
+        return new Dates($ts, $this->timezone);
     }
 
     // Day
-    public function getDayStart() {
-        return  strtotime($this->ds);
+    public function DayStart() {
+        $ts = strtotime($this->ds);
+        return new Dates($ts, $this->timezone);
     }
 
-    public function getNextDayStart() {
-        return strtotime(date("Y-m-d", strtotime("$this->ds +1 days")));
+    public function NextDayStart() {
+        $ts = strtotime(date("Y-m-d", strtotime("$this->ds +1 days")));
+        return new Dates($ts, $this->timezone);
     }
 
-    public function getPreviousDayStart() {
-        return strtotime(date("Y-m-d", strtotime("$this->ds -1 days")));
+    public function PreviousDayStart() {
+        $ts = strtotime(date("Y-m-d", strtotime("$this->ds -1 days")));
+        return new Dates($ts, $this->timezone);
     }
 
     // Week
-    public function getWeekStart() {
+    public function WeekStart() {
         $ws = date("Y-m-d", strtotime("$this->ds -$this->num_day days"));
-        return strtotime($ws);
+        $ts = strtotime($ws);
+        return new Dates($ts, $this->timezone);
     }
 
-    public function getWeekEnd() {
+    public function WeekEnd() {
         $ws = date("Y-m-d", strtotime("$this->ds -$this->num_day days"));
         $we = date("Y-m-d 23:59:59", strtotime("$ws +6 days"));
-        return strtotime($we);
+        $ts = strtotime($we);
+        return new Dates($ts, $this->timezone);
     }
 
-    public function getNextWeekStart() {
+    public function NextWeekStart() {
         $ws = date("Y-m-d", strtotime("$this->ds -$this->num_day days"));
-        return strtotime(date("Y-m-d", strtotime("$ws +1 weeks")));
+        $ts = strtotime(date("Y-m-d", strtotime("$ws +1 weeks")));
+        return new Dates($ts, $this->timezone);
     }
 
-    public function getNextWeekEnd() {
-        $ws = date("Y-m-d", strtotime("$this->ds -$this->num_day days"));
-        $we = date("Y-m-d", strtotime("$ws +6 days"));
-        return strtotime(date("Y-m-d 23:59:59", strtotime("$we +1 weeks")));
-    }
-
-    public function getPreviousWeekStart() {
-        $ws = date("Y-m-d", strtotime("$this->ds -$this->num_day days"));
-        return strtotime(date("Y-m-d", strtotime("$ws -1 weeks")));
-    }
-
-    public function getPreviousWeekEnd() {
+    public function NextWeekEnd() {
         $ws = date("Y-m-d", strtotime("$this->ds -$this->num_day days"));
         $we = date("Y-m-d", strtotime("$ws +6 days"));
-        return strtotime(date("Y-m-d 23:59:59", strtotime("$we -1 weeks")));
+        $ts = strtotime(date("Y-m-d 23:59:59", strtotime("$we +1 weeks")));
+        return new Dates($ts, $this->timezone);
+    }
+
+    public function PreviousWeekStart() {
+        $ws = date("Y-m-d", strtotime("$this->ds -$this->num_day days"));
+        $ts = strtotime(date("Y-m-d", strtotime("$ws -1 weeks")));
+        return new Dates($ts, $this->timezone);
+    }
+
+    public function PreviousWeekEnd() {
+        $ws = date("Y-m-d", strtotime("$this->ds -$this->num_day days"));
+        $we = date("Y-m-d", strtotime("$ws +6 days"));
+        $ts = strtotime(date("Y-m-d 23:59:59", strtotime("$we -1 weeks")));
+        return new Dates($ts, $this->timezone);
     }
 
     // Month
-    public function getMonthStart() {
-        return strtotime(date("Y-m-01", strtotime($this->ds)));
+    public function MonthStart() {
+        $ts = strtotime(date("Y-m-01", strtotime($this->ds)));
+        return new Dates($ts, $this->timezone);
     }
 
-    public function getMonthEnd() {
-        return strtotime(date("Y-m-t 23:59:59", strtotime($this->ds)));
+    public function MonthEnd() {
+        $ts = strtotime(date("Y-m-t 23:59:59", strtotime($this->ds)));
+        return new Dates($ts, $this->timezone);
     }
 
-    public function getNextMonthStart() {
-        return strtotime(date("Y-m-01", strtotime("$this->ds +1 months")));
+    public function NextMonthStart() {
+        $ts = strtotime(date("Y-m-01", strtotime("$this->ds +1 months")));
+        return new Dates($ts, $this->timezone);
     }
 
-    public function getNextMonthEnd() {
+    public function NextMonthEnd() {
         $ms = date("Y-m-01", strtotime("$this->ds +1 months"));
-        return strtotime(date("Y-m-t 23:59:59", strtotime($ms)));
+        $ts = strtotime(date("Y-m-t 23:59:59", strtotime($ms)));
+        return new Dates($ts, $this->timezone);
     }
 
-    public function getPreviousMonthStart() {
-        return strtotime(date("Y-m-01", strtotime("$this->ds -1 months")));
+    public function PreviousMonthStart() {
+        $ts = strtotime(date("Y-m-01", strtotime("$this->ds -1 months")));
+        return new Dates($ts, $this->timezone);
     }
 
-    public function getPreviousMonthEnd() {
+    public function PreviousMonthEnd() {
         $ms = date("Y-m-01", strtotime("$this->ds -1 months"));
-        return strtotime(date("Y-m-t 23:59:59", strtotime($ms)));
+        $ts = strtotime(date("Y-m-t 23:59:59", strtotime($ms)));
+        return new Dates($ts, $this->timezone);
     }
 
     // Year
-    public function getYearStart() {
-        return strtotime(date("Y-01-01", strtotime($this->ds)));
+    public function YearStart() {
+        $ts = strtotime(date("Y-01-01", strtotime($this->ds)));
+        return new Dates($ts, $this->timezone);
     }
 
-    public function getYearEnd() {
-        return strtotime(date("Y-12-31 23:59:59", strtotime($this->ds)));
+    public function YearEnd() {
+        $ts = strtotime(date("Y-12-31 23:59:59", strtotime($this->ds)));
+        return new Dates($ts, $this->timezone);
     }
 
-    public function getNextYearStart() {
-        return strtotime(date("Y-01-01", strtotime("$this->ds +1 years")));
+    public function NextYearStart() {
+        $ts = strtotime(date("Y-01-01", strtotime("$this->ds +1 years")));
+        return new Dates($ts, $this->timezone);
     }
 
-    public function getNextYearEnd() {
-        return strtotime(date("Y-12-31 23:59:59", strtotime("$this->ds +1 years")));
+    public function NextYearEnd() {
+        $ts = strtotime(date("Y-12-31 23:59:59", strtotime("$this->ds +1 years")));
+        return new Dates($ts, $this->timezone);
     }
 
-    public function getPreviousYearStart() {
-        return strtotime(date("Y-01-01", strtotime("$this->ds -1 years")));
+    public function PreviousYearStart() {
+        $ts = strtotime(date("Y-01-01", strtotime("$this->ds -1 years")));
+        return new Dates($ts, $this->timezone);
     }
 
-    public function getPreviousYearEnd() {
-        return strtotime(date("Y-12-31 23:59:59", strtotime("$this->ds -1 years")));
+    public function PreviousYearEnd() {
+        $ts = strtotime(date("Y-12-31 23:59:59", strtotime("$this->ds -1 years")));
+        return new Dates($ts, $this->timezone);
     }
 }

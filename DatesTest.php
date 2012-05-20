@@ -15,149 +15,150 @@ class DatesTest extends PHPUnit_Framework_TestCase {
 
     // Hour
     function testHourStart() {
-        $actual = $this->date->getHourStart();
+        $actual = $this->date->HourStart()->toTimestamp();
         $expected = strtotime('2012-12-09 13:00');
         $this->assertEquals($expected, $actual);
     }
 
-    function testPreviousHourStart() {
-        $actual = $this->date->getPreviousHourStart();
-        $expected = strtotime('2012-12-09 12:00');
+    function testNextHourStart() {
+        $actual = $this->date->NextHourStart()->toTimestamp();
+        $expected = strtotime('2012-12-09 14:00');
         $this->assertEquals($expected, $actual);
     }
 
-    function testNextHourStart() {
-        $actual = $this->date->getNextHourStart();
-        $expected = strtotime('2012-12-09 14:00');
+    function testPreviousHourStart() {
+        $actual = $this->date->PreviousHourStart()->toTimestamp();
+        $expected = strtotime('2012-12-09 12:00');
         $this->assertEquals($expected, $actual);
     }
 
     // Day
     function testDayStart() {
-        $actual = $this->date->getDayStart();
+        $actual = $this->date->DayStart()->toTimestamp();
         $expected = strtotime('2012-12-09 00:00');
         $this->assertEquals($expected, $actual);
     }
 
-    function testPreviousDayStart() {
-        $actual = $this->date->getPreviousDayStart();
-        $expected = strtotime('2012-12-08 00:00');
+    function testNextDayStart() {
+        $actual = $this->date->NextDayStart()->toTimestamp();
+        $expected = strtotime('2012-12-10 00:00');
         $this->assertEquals($expected, $actual);
     }
 
-    function testNextDayStart() {
-        $actual = $this->date->getNextDayStart();
-        $expected = strtotime('2012-12-10 00:00');
+
+    function testPreviousDayStart() {
+        $actual = $this->date->PreviousDayStart()->toTimestamp();
+        $expected = strtotime('2012-12-08 00:00');
         $this->assertEquals($expected, $actual);
     }
 
     // Week
     function testWeekStart() {
-        $actual = $this->date->getWeekStart();
+        $actual = $this->date->WeekStart()->toTimestamp();
         $expected = strtotime('2012-12-09 00:00');
         $this->assertEquals($expected, $actual);
     }
 
     function testWeekEnd() {
-        $actual = $this->date->getWeekEnd();
+        $actual = $this->date->WeekEnd()->toTimestamp();
         $expected = strtotime('2012-12-15 23:59:59');
         $this->assertEquals($expected, $actual);
     }
 
-    function testPreviousWeekStart() {
-        $actual = $this->date->getPreviousWeekStart();
-        $expected = strtotime('2012-12-02 00:00');
-        $this->assertEquals($expected, $actual);
-    }
-
-    function testPreviousWeekEnd() {
-        $actual = $this->date->getPreviousWeekEnd();
-        $expected = strtotime('2012-12-08 23:59:59');
-        $this->assertEquals($expected, $actual);
-    }
-
     function testNextWeekStart() {
-        $actual = $this->date->getNextWeekStart();
+        $actual = $this->date->NextWeekStart()->toTimestamp();
         $expected = strtotime('2012-12-16 00:00');
         $this->assertEquals($expected, $actual);
     }
 
     function testNextWeekEnd() {
-        $actual = $this->date->getNextWeekEnd();
+        $actual = $this->date->NextWeekEnd()->toTimestamp();
         $expected = strtotime('2012-12-22 23:59:59');
+        $this->assertEquals($expected, $actual);
+    }
+
+    function testPreviousWeekStart() {
+        $actual = $this->date->PreviousWeekStart()->toTimestamp();
+        $expected = strtotime('2012-12-02 00:00');
+        $this->assertEquals($expected, $actual);
+    }
+
+    function testPreviousWeekEnd() {
+        $actual = $this->date->PreviousWeekEnd()->toTimestamp();
+        $expected = strtotime('2012-12-08 23:59:59');
         $this->assertEquals($expected, $actual);
     }
 
     // Month
     function testMonthStart() {
-        $actual = $this->date->getMonthStart();
+        $actual = $this->date->MonthStart()->toTimestamp();
         $expected = strtotime('2012-12-01 00:00');
         $this->assertEquals($expected, $actual);
     }
 
     function testMonthEnd() {
-        $actual = $this->date->getMonthEnd();
+        $actual = $this->date->MonthEnd()->toTimestamp();
         $expected = strtotime('2012-12-31 23:59:59');
         $this->assertEquals($expected, $actual);
     }
 
-    function testPreviousMonthStart() {
-        $actual = $this->date->getPreviousMonthStart();
-        $expected = strtotime('2012-11-01 00:00');
-        $this->assertEquals($expected, $actual);
-    }
-
-    function testPreviousMonthEnd() {
-        $actual = $this->date->getPreviousMonthEnd();
-        $expected = strtotime('2012-11-30 23:59:59');
-        $this->assertEquals($expected, $actual);
-    }
-
     function testNextMonthStart() {
-        $actual = $this->date->getNextMonthStart();
+        $actual = $this->date->NextMonthStart()->toTimestamp();
         $expected = strtotime('2013-01-01 00:00');
         $this->assertEquals($expected, $actual);
     }
 
     function testNextMonthEnd() {
-        $actual = $this->date->getNextMonthEnd();
+        $actual = $this->date->NextMonthEnd()->toTimestamp();
         $expected = strtotime('2013-01-31 23:59:59');
+        $this->assertEquals($expected, $actual);
+    }
+
+    function testPreviousMonthStart() {
+        $actual = $this->date->PreviousMonthStart()->toTimestamp();
+        $expected = strtotime('2012-11-01 00:00');
+        $this->assertEquals($expected, $actual);
+    }
+
+    function testPreviousMonthEnd() {
+        $actual = $this->date->PreviousMonthEnd()->toTimestamp();
+        $expected = strtotime('2012-11-30 23:59:59');
         $this->assertEquals($expected, $actual);
     }
 
     // Year
     function testYearStart() {
-        $actual = $this->date->getYearStart();
+        $actual = $this->date->YearStart()->toTimestamp();
         $expected = strtotime('2012-01-01 00:00');
         $this->assertEquals($expected, $actual);
     }
 
     function testYearEnd() {
-        $actual = $this->date->getYearEnd();
+        $actual = $this->date->YearEnd()->toTimestamp();
         $expected = strtotime('2012-12-31 23:59:59');
         $this->assertEquals($expected, $actual);
     }
 
     function testNextYearStart() {
-        $actual = $this->date->getNextYearStart();
+        $actual = $this->date->NextYearStart()->toTimestamp();
         $expected = strtotime('2013-01-01 00:00');
         $this->assertEquals($expected, $actual);
     }
 
     function testNextYearEnd() {
-        $actual = $this->date->getNextYearEnd();
+        $actual = $this->date->NextYearEnd()->toTimestamp();
         $expected = strtotime('2013-12-31 23:59:59');
         $this->assertEquals($expected, $actual);
     }
 
     function testPreviousYearStart() {
-        $actual = $this->date->getPreviousYearStart();
+        $actual = $this->date->PreviousYearStart()->toTimestamp();
         $expected = strtotime('2011-01-01 00:00');
         $this->assertEquals($expected, $actual);
     }
 
     function testPreviousYearEnd() {
-        $actual = $this->date->getPreviousYearEnd();
+        $actual = $this->date->PreviousYearEnd()->toTimestamp();
         $expected = strtotime('2011-12-31 23:59:59');
         $this->assertEquals($expected, $actual);
     }
@@ -167,7 +168,7 @@ class DatesTest extends PHPUnit_Framework_TestCase {
         $ts = strtotime('2012-05-09 13:00');
         $date = new Dates($ts, 'UTC');
         $timezone = new DateTimeZone('UTC');
-        $dateTime = new DateTime(date('Y-m-d\TH:i:s', $date->getDayStart()), $timezone);
+        $dateTime = new DateTime(date('Y-m-d\TH:i:s', $date->DayStart()->toTimestamp()), $timezone);
         $actual = abs($timezone->getOffset($dateTime)) / Dates::ONE_HOUR;
 
         $expected = 0;
@@ -178,7 +179,7 @@ class DatesTest extends PHPUnit_Framework_TestCase {
         $ts = strtotime('2012-05-09 13:00');
         $date = new Dates($ts, 'America/New_York');
         $timezone = new DateTimeZone('America/New_York');
-        $dateTime = new DateTime(date('Y-m-d\TH:i:s', $date->getDayStart()), $timezone);
+        $dateTime = new DateTime(date('Y-m-d\TH:i:s', $date->DayStart()->toTimestamp()), $timezone);
         $actual = abs($timezone->getOffset($dateTime)) / Dates::ONE_HOUR;
 
         $expected = 4;
@@ -189,7 +190,7 @@ class DatesTest extends PHPUnit_Framework_TestCase {
         $ts = strtotime('2012-12-09 13:00');
         $date = new Dates($ts, 'UTC');
         $timezone = new DateTimeZone('UTC');
-        $dateTime = new DateTime(date('Y-m-d\TH:i:s', $date->getDayStart()), $timezone);
+        $dateTime = new DateTime(date('Y-m-d\TH:i:s', $date->DayStart()->toTimestamp()), $timezone);
         $actual = abs($timezone->getOffset($dateTime)) / Dates::ONE_HOUR;
 
         $expected = 0;
@@ -200,7 +201,7 @@ class DatesTest extends PHPUnit_Framework_TestCase {
         $ts = strtotime('2012-12-09 13:00');
         $date = new Dates($ts, 'America/New_York');
         $timezone = new DateTimeZone('America/New_York');
-        $dateTime = new DateTime(date('Y-m-d\TH:i:s', $date->getDayStart()), $timezone);
+        $dateTime = new DateTime(date('Y-m-d\TH:i:s', $date->DayStart()->toTimestamp()), $timezone);
         $actual = abs($timezone->getOffset($dateTime)) / Dates::ONE_HOUR;
 
         $expected = 5;
@@ -211,7 +212,7 @@ class DatesTest extends PHPUnit_Framework_TestCase {
     function testDayStartLeapYear() {
         $ts  = strtotime('2012-02-29 13:33');
         $est = new Dates($ts, 'America/New_York');
-        $actual = $est->getDayStart();
+        $actual = $est->DayStart()->toTimestamp();
         $expected = strtotime('2012-02-29 00:00');
         $this->assertEquals($actual , $expected);
     }
@@ -219,7 +220,7 @@ class DatesTest extends PHPUnit_Framework_TestCase {
     function testPreviousDayStartLeapYear() {
         $ts  = strtotime('2012-02-29 13:33');
         $est = new Dates($ts, 'America/New_York');
-        $actual = $est->getPreviousDayStart();
+        $actual = $est->PreviousDayStart()->toTimestamp();
         $expected = strtotime('2012-02-28 00:00');
         $this->assertEquals($actual , $expected);
     }
@@ -227,9 +228,8 @@ class DatesTest extends PHPUnit_Framework_TestCase {
     function testNextDayStartLeapYear() {
         $ts  = strtotime('2012-02-29 13:33');
         $est = new Dates($ts, 'America/New_York');
-        $actual = $est->getNextDayStart();
+        $actual = $est->NextDayStart()->toTimestamp();
         $expected = strtotime('2012-03-01 00:00');
         $this->assertEquals($actual , $expected);
     }
 }
-
