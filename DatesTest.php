@@ -232,4 +232,17 @@ class DatesTest extends PHPUnit_Framework_TestCase {
         $expected = strtotime('2012-03-01 00:00');
         $this->assertEquals($actual , $expected);
     }
+
+    // Chaining
+    function testChainingHour() {
+        $actual = $this->date->PreviousHourStart()->PreviousHourStart()->PreviousHourStart()->toTimestamp();
+        $expected = strtotime('2012-12-09 10:00');
+        $this->assertEquals($expected, $actual);
+    }
+
+    function testChainingDay() {
+        $actual = $this->date->PreviousDayStart()->PreviousDayStart()->toTimestamp();
+        $expected = strtotime('2012-12-07 00:00');
+        $this->assertEquals($expected, $actual);
+    }
 }
