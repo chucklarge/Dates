@@ -245,4 +245,24 @@ class DatesTest extends PHPUnit_Framework_TestCase {
         $expected = strtotime('2012-12-07 00:00');
         $this->assertEquals($expected, $actual);
     }
+
+    // Date Format
+    function testDateFormat() {
+        $actual = (string)$this->date->PreviousMonthStart();
+        $expected  = '2012-11-01 00:00:00';
+        $this->assertEquals($expected, $actual);
+    }
+
+    function testSetDateFormat() {
+        $this->date->setDateFormat('Y-m-d');
+        $actual = (string)$this->date->PreviousMonthStart();
+        $expected  = '2012-11-01';
+        $this->assertEquals($expected, $actual);
+    }
+
+    function testToString() {
+        $actual = $this->date->PreviousMonthStart()->NextWeekStart()->toString();
+        $expected  = '2012-11-04 00:00:00';
+        $this->assertEquals($expected, $actual);
+    }
 }
